@@ -1,0 +1,71 @@
+Day 0 (Git)
+1. What is Git? Why is it used?
+Git is a distributed version control system (VCS) that helps developers track changes in their code over time. It allows for collaboration, enabling multiple developers to work on the same project simultaneously without overwriting each other's work. Git keeps track of every change made to the codebase and allows you to revert back to previous versions if necessary.
+Why is it used?
+    • Version Control: Git allows you to track changes, so you know who changed what and when.
+    • Collaboration: Multiple developers can work on the same project without conflict.
+    • Branching and Merging: Git enables you to create branches to work on new features without affecting the main codebase, and then merge changes back in when they are ready.
+    • Distributed: Every developer has a full copy of the repository, so they can work offline and have full history access.
+
+
+2. What do you understand by repositories, branches, commits, tracked, untracked and staged files, local and remote in Git?
+    • Repository: A repository (repo) is a project’s directory where all the files, history, and metadata are stored. It’s essentially the database of your project.
+    • Branch: A branch is a separate line of development in a Git repository. The default branch is typically called main (formerly master), but developers create other branches for features, bug fixes, etc. This allows independent development without affecting the main codebase.
+    • Commit: A commit is like a snapshot of the changes made to the repository. It represents a specific point in the project’s history, and it includes a message describing what changes were made.
+    • Tracked Files: Files that are being tracked by Git, meaning Git is aware of any changes made to them. They have been previously added to the staging area or committed.
+    • Untracked Files: Files that Git is not tracking. These are new files that have not yet been added to the repository (using git add).
+    • Staged Files: Files that are in the staging area, ready to be committed. When you modify a file, you need to stage it (git add) before committing.
+    • Local and Remote:
+        ◦ Local: Refers to your local copy of the repository on your machine.
+        ◦ Remote: A copy of the repository hosted on a server or service like GitHub, GitLab, or Bitbucket. Remote repositories allow you to share changes with other developers.
+
+
+3. What is git log? Why is it important? What information does it contain?
+The git log command shows the commit history of the repository. It displays a list of commits in reverse chronological order (most recent first).
+Why is it important?
+    • It helps developers understand the history of changes made to the repository.
+    • You can see the commit messages, author information, dates, and commit hashes.
+    • It’s useful for tracking progress, debugging, and understanding the sequence of changes.
+What information does it contain?
+    • Commit hash: A unique identifier for each commit (e.g., b92f90d).
+    • Author: The name of the person who made the commit.
+    • Date: The timestamp when the commit was made.
+    • Commit message: A brief description of the changes made in the commit.
+
+
+4. What do you understand by the git config file?
+The git config file is where Git stores configuration settings for repositories. It allows you to customize Git’s behavior, such as setting your username and email, defining the default text editor, and more.
+Git has three levels of configuration:
+    • System: Applied to all users on the system (located in /etc/gitconfig).
+    • Global: Applied to a specific user across all repositories (located in ~/.gitconfig).
+    • Local: Applied to a specific repository (located in the .git/config file in the repository).
+Common configurations include:
+    • user.name: Your name.
+    • user.email: Your email.
+    • core.editor: The default editor for commit messages.
+
+
+5. What do you understand by the .gitignore file and why is it used?
+The .gitignore file is used to tell Git which files or directories to ignore and not track. This is particularly useful for ignoring temporary files, build files, logs, compiled files, and sensitive data like passwords that shouldn't be version-controlled.
+For example, you might want to ignore:
+    • .log files
+    • node_modules/ in a Node.js project
+    • *.class in a Java project
+Without a .gitignore file, Git would attempt to track all files, which could lead to unnecessary clutter in your repository.
+
+
+6. What is a PR/MR and why is it useful in a collaborative project?
+PR (Pull Request) and MR (Merge Request) are terms used interchangeably, depending on the platform (GitHub uses PR, GitLab uses MR).
+A Pull Request (PR) or Merge Request (MR) is a way for developers to propose changes to the codebase. When a developer completes a feature or fix in a branch, they create a PR/MR to request that their changes be reviewed and merged into the main branch.
+Why is it useful in a collaborative project?
+    • Code Review: Allows team members to review and comment on changes before they are merged, ensuring code quality.
+    • Collaboration: Facilitates discussion around specific changes or features.
+    • Prevents Mistakes: Allows for testing and verification before new code is merged into the main codebase, reducing the risk of bugs.
+
+
+7. What is a master branch and how is it different from the other branches?
+The master (or now often referred to as main) branch is the default branch in Git repositories. It typically represents the stable, production-ready codebase.
+How is it different from other branches?
+    • The master/main branch is the primary, stable version of the project.
+    • Other branches are usually created for features, bug fixes, or experiments. These branches can be merged back into the master/main branch once the changes are reviewed and tested.
+    • The master/main branch should only contain fully stable and tested code, while feature or bug-fix branches may contain incomplete or experimental code.
