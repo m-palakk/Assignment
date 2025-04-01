@@ -1,0 +1,768 @@
+Day -1...(Continue)
+
+Control flow and error handling
+
+1. Block Statements
+    • Definition: A block statement is a group of multiple statements enclosed in curly braces {}. It allows multiple operations to be grouped and executed together as a single unit.
+    • Use Case: Block statements are used in control flow statements like loops (for, while) and conditionals (if, else). They ensure that a set of operations runs as part of the control flow structure.
+2. Conditional Statements
+    • if...else: This is used to execute one set of code if a condition is true, and another set if it is false. You can chain multiple conditions using else if.
+        ◦ Best Practice: Always use block statements {} to group multiple statements, especially when nesting conditions.
+    • switch: This statement compares a single expression against multiple possible values. It is typically used when there are many possible conditions for a single variable, and it is more readable than chaining multiple if...else statements. If no match is found, the default case is executed (if provided).
+3. Falsy Values
+In JavaScript, some values are considered "falsy," meaning they evaluate to false in conditional checks. These include:
+    • false
+    • null
+    • undefined
+    • 0
+    • NaN
+    • "" (empty string) Any other value (like objects or arrays) is "truthy" and evaluates to true.
+4. Exception Handling
+JavaScript has a built-in mechanism for handling errors during runtime using throw, try...catch, and finally.
+    • throw: Used to throw custom errors. It can throw any type of object, including strings, numbers, or even error objects.
+    • try...catch: This structure allows you to run code inside the try block and catch any errors in the catch block. If an error occurs, control jumps to the catch block. If no error happens, the catch block is skipped.
+    • finally: This block always executes after the try...catch blocks, regardless of whether an error was thrown or not. It is useful for performing cleanup tasks, like closing files or releasing resources.
+5. Best Practices
+    • Always use block statements {} when dealing with conditionals or loops, even for single-line statements.
+    • Avoid assignments in conditions like if (x = y), as this can lead to unexpected behavior. Instead, ensure proper comparisons using == or ===.
+
+Loops
+1. Purpose of Loops
+    • Loops allow you to repeat a block of code multiple times.
+    • They are often used when the number of repetitions is known or when you need to iterate over a collection of data (e.g., arrays or objects).
+2. Types of Loops
+JavaScript offers different types of loops, each with its specific use case:
+    • for loop: Best used when you know the number of iterations in advance.
+    • do...while loop: Ensures the block of code runs at least once, then continues based on a condition.
+    • while loop: Continues to execute as long as the condition evaluates to true.
+    • for...in loop: Iterates over enumerable properties of an object.
+    • for...of loop: Iterates over iterable objects (e.g., arrays, maps, sets).
+3. for Loop
+    • Structure:
+      javascript
+      Copy
+      for (initialization; condition; afterthought) {
+        statement;
+      }
+    • Process:
+        1. Initialization occurs once at the start (usually variable declaration).
+        2. Condition is checked before each iteration. If false, the loop stops.
+        3. The statement(s) inside the loop are executed.
+        4. Afterthought runs after each iteration (usually an increment or modification).
+    • Example:
+      javascript
+      Copy
+      for (let i = 0; i < 5; i++) {
+        console.log("Walking east one step");
+      }
+4. do...while Loop
+    • Structure:
+      javascript
+      Copy
+      do {
+        statement;
+      } while (condition);
+    • Key Point: The statement is executed at least once, even if the condition is false.
+    • Example:
+      javascript
+      Copy
+      let i = 0;
+      do {
+        console.log(i);
+        i++;
+      } while (i < 5);
+5. while Loop
+    • Structure:
+      javascript
+      Copy
+      while (condition) {
+        statement;
+      }
+    • Key Point: The condition is checked before each iteration, so if it is false at the start, the loop doesn't run.
+    • Example:
+      javascript
+      Copy
+      let n = 0;
+      while (n < 3) {
+        n++;
+        console.log(n);
+      }
+6. break Statement
+    • Purpose: Exits a loop (or switch) prematurely.
+    • Syntax:
+      javascript
+      Copy
+      break; // Exits the loop
+      break label; // Exits the labeled loop
+    • Example: Stop a loop when a specific condition is met:
+      javascript
+      Copy
+      for (let i = 0; i < a.length; i++) {
+        if (a[i] === theValue) {
+          break;
+        }
+      }
+7. continue Statement
+    • Purpose: Skips the current iteration and moves to the next iteration of the loop.
+    • Syntax:
+      javascript
+      Copy
+      continue; // Skips to the next iteration
+      continue label; // Skips to the next iteration of the labeled loop
+    • Example: Skip a specific condition:
+      javascript
+      Copy
+      let i = 0;
+      while (i < 5) {
+        i++;
+        if (i === 3) {
+          continue; // Skip the iteration when i is 3
+        }
+        console.log(i);
+      }
+8. Labeled Statements
+    • Purpose: Labels allow you to refer to specific loops and break or continue at those points.
+    • Syntax:
+      javascript
+      Copy
+      label: statement;
+    • Example: Use labeled loops to break out of nested loops.
+      javascript
+      Copy
+      labelCancelLoops: while (true) {
+        // Outer loop
+        while (true) {
+          // Inner loop
+          if (someCondition) {
+            break labelCancelLoops; // Exit both loops
+          }
+        }
+      }
+9. for...in Loop
+    • Purpose: Iterates over the enumerable properties of an object.
+    • Syntax:
+      javascript
+      Copy
+      for (variable in object) {
+        statement;
+      }
+    • Key Point: Best used for iterating over objects, not arrays (can include non-numeric properties).
+    • Example:
+      javascript
+      Copy
+      const obj = { a: 1, b: 2 };
+      for (const key in obj) {
+        console.log(key); // Logs 'a', 'b'
+        console.log(obj[key]); // Logs 1, 2
+      }
+10. for...of Loop
+    • Purpose: Iterates over the values of iterable objects like arrays, strings, maps, etc.
+    • Syntax:
+      javascript
+      Copy
+      for (variable of iterable) {
+        statement;
+      }
+    • Key Point: Works best for arrays and iterable objects (e.g., strings, sets).
+    • Example:
+      javascript
+      Copy
+      const arr = [3, 5, 7];
+      for (const value of arr) {
+        console.log(value); // Logs 3, 5, 7
+      }
+11. Key Differences: for...in vs for...of
+    • for...in: Iterates over property keys (or indices for arrays).
+    • for...of: Iterates over property values (values for arrays or elements in iterable objects).
+    • Example:
+      javascript
+      Copy
+      const arr = [3, 5, 7];
+      arr.foo = 'hello';
+      
+      for (const key in arr) {
+        console.log(key); // Logs '0', '1', '2', 'foo'
+      }
+      
+      for (const value of arr) {
+        console.log(value); // Logs 3, 5, 7
+      }
+12. General Best Practices
+    • Avoid infinite loops: Ensure loop conditions will eventually be false.
+    • Use for or for...of for arrays: If iterating over arrays, prefer using for or for...of instead of for...in to avoid iterating over properties you might add to arrays.
+    • Choose the right loop for the task: Use for when you know how many iterations you need, while for conditions that might change during execution, and do...while when you need at least one iteration.
+
+Expressions Definition: A unit of code that resolves to a value. Types: Primary Expressions: Basic
+building blocks. Examples: 42, "hello", true, null, undefined, this. Object/Array Literals: Examples: {
+name: "John" }, [1, 2, 3]. Function Expressions: Example: function() { return 5; }. Operator Expressions:
+Combine values using operators. Example: 3 + 5, x > 0. Key Point: Any valid expression can be used
+where a value is expected (e.g., assignments, function arguments). Operators Definition: Symbols or
+keywords that perform operations on operands (values or variables). Categories: Arithmetic Operators:
+(Addition): Adds numbers or concatenates strings. Example: 5 + 3 // 8, "a"
++ "b" // "ab". (Subtraction): 10 - 4 // 6. (Multiplication): 2 * 3 // 6. /
+(Division): 6 / 2 // 3. % (Modulus): Remainder of division, 7 % 3 // 1.
+(Exponentiation): 2 ** 3 // 8 (23). ++ (Increment): x++ or ++x (adds 1).
+(Decrement): x-- or --x (subtracts 1). Assignment Operators: = : Assigns a
+value: x = 5. Compound: Combine operation with assignment. Examples:
++=, -=, *=, /=, %=, **=. x += 3 ≡ x = x + 3. Comparison Operators: ==
+(Equality): Loose compa
+2. || (OR): True if at least one operand is true.
+Example: true || false // true.
+3. ! (NOT): Inverts truthiness.
+Example: !true // false.
+4. Short-circuiting: && stops at first false, || at first true.
+Bitwise Operators:
+1. Operate on binary representations.
+2. & (AND): 5 & 3 // 1 (0101 & 0011 = 0001).
+3. | (OR): 5 | 3 // 7 (0101 | 0011 = 0111).
+4. ^ (XOR): 5 ^ 3 // 6 (0101 ^ 0011 = 0110).
+5. ~ (NOT): ~5 // -6 (inverts bits).
+6. << (Left Shift): 5 << 1 // 10 (0101 << 1 = 1010).
+7. (Right Shift): 5 >> 1 // 2 (0101 >> 1 = 0010).
+8. (Unsigned Right Shift): 5 >>> 1 // 2.
+String Operators:
+
+(Concatenation): "a" + "b" // "ab".
+2. += : Concatenates and assigns: str += "c".
+Conditional (Ternary) Operator:
+1. Syntax: condition ? valueIfTrue : valueIfFalse.
+2. Example: x > 0 ? "positive" : "negative".
+
+
+
+
+
+
+
+Numbers 
+
+1. Number Representation
+    • Format: JavaScript uses 64-bit double-precision (IEEE 754) format for numbers, supporting values between approximately ±10^−308 to ±10^+308 with a precision of 53 bits.
+    • Integer Range: Integers between ±2^53 − 1 can be represented exactly.
+2. Symbolic Values
+    • Infinity, -Infinity, and NaN are special values for extreme or undefined numbers.
+3. Number Literals
+    • Decimal: Standard numbers, e.g., 42.
+    • Binary: Prefix 0b or 0B, e.g., 0b1010.
+    • Octal: Prefix 0o or 0O, e.g., 0o755.
+    • Hexadecimal: Prefix 0x or 0X, e.g., 0xFF.
+4. Exponentiation
+    • Numbers can be written in scientific notation: e.g., 5e3 equals 5000.
+5. Number Object Methods
+    • Number.MAX_VALUE: Largest positive number.
+    • Number.NaN: Not-a-number value.
+    • Number.isInteger(): Checks if a value is an integer.
+6. Math Object
+    • Built-in methods for mathematical operations like Math.sin(), Math.random(), Math.pow(), and others.
+7. BigInt
+    • Represents integers beyond the limits of the Number type, suffixed with n (e.g., 123n).
+    • BigInts don’t support floating-point numbers and can’t be used with Math functions.
+
+Strings
+1. String Basics
+    • Representation: A String in JavaScript is a sequence of 16-bit UTF-16 code units. Each character is stored as an element, with each element occupying an index starting from 0.
+    • Length: The length of a string is determined by the number of elements (characters) it contains.
+2. String Literals
+    • Strings can be created using single quotes (') or double quotes ("), e.g., 'hello' or "world".
+3. Escape Sequences
+    • Hexadecimal Escape: \xA9 represents the copyright symbol (©).
+    • Unicode Escape: \u00A9 also represents ©.
+    • Unicode Code Point: For characters beyond 4 hexadecimal digits, you can use \u{...}, e.g., \u{2F804}.
+4. String Methods
+    • Query Methods: To get characters or their codes at specific indexes:
+        ◦ at(), charAt(), charCodeAt(), and codePointAt().
+    • Search Methods: To search for substrings or patterns:
+        ◦ indexOf(), lastIndexOf(), startsWith(), endsWith(), includes(), match(), matchAll(), and search().
+    • Composition Methods: Combine strings:
+        ◦ padStart(), padEnd(), concat(), and repeat().
+    • Decomposition Methods: Split or break strings:
+        ◦ split(), slice(), substring(), substr(), trim(), trimStart(), and trimEnd().
+    • Transformation Methods: Modify or format strings:
+        ◦ toLowerCase(), toUpperCase(), toLocaleLowerCase(), toLocaleUpperCase(), normalize(), and toWellFormed().
+
+Date Object 
+Creating a Date Object You can create a Date object in different ways:
+    • Current Date and Time:
+      javascript
+      Copy
+      const today = new Date();
+    • Using a Date String: The string format YYYY-MM-DDTHH:mm:ss.sssZ is the most common and supported across engines:
+      javascript
+      Copy
+      const xmas95 = new Date("1995-12-25");
+    • Using Year, Month, and Day (0-based month):
+      javascript
+      Copy
+      const xmas95 = new Date(1995, 11, 25); // December 25, 1995
+    • Complete Date and Time (Year, Month, Day, Hour, Minute, Second):
+      javascript
+      Copy
+      const xmas95 = new Date(1995, 11, 25, 9, 30, 0); // Dec 25, 1995 09:30:00
+3. Date Object Methods There are many methods for interacting with the Date object. They can be broadly grouped into:
+    • "set" Methods: Used to set date/time values.
+    • "get" Methods: Used to retrieve date/time values.
+    • "to" Methods: Convert date to string format.
+    • parse() and UTC() Methods: Parse Date strings and work with UTC time.
+Common "set" and "get" Methods
+    • get methods: Retrieve parts of the date.
+        ◦ getFullYear() – Gets the 4-digit year.
+        ◦ getMonth() – Gets the month (0 = January, 11 = December).
+        ◦ getDate() – Gets the day of the month (1–31).
+        ◦ getHours() – Gets the hour (0–23).
+        ◦ getMinutes() – Gets the minute (0–59).
+        ◦ getSeconds() – Gets the second (0–59).
+        ◦ getMilliseconds() – Gets the millisecond (0–999).
+        ◦ getDay() – Gets the day of the week (0 = Sunday, 6 = Saturday).
+        ◦ getTime() – Gets the timestamp in milliseconds (number of milliseconds since epoch).
+    • set methods: Set date parts.
+        ◦ setFullYear(year) – Sets the year.
+        ◦ setMonth(month) – Sets the month (0 = January).
+        ◦ setDate(day) – Sets the day of the month.
+        ◦ setHours(hour) – Sets the hour.
+        ◦ setMinutes(minute) – Sets the minute.
+        ◦ setSeconds(second) – Sets the second.
+        ◦ setMilliseconds(ms) – Sets the millisecond.
+Example of "get" and "set"
+javascript
+Copy
+const date = new Date("1995-12-25");
+
+// Get the month (0-based, so 11 is December)
+console.log(date.getMonth()); // 11
+
+// Get the full year
+console.log(date.getFullYear()); // 1995
+
+// Set a new year
+date.setFullYear(2000);
+console.log(date.getFullYear()); // 2000
+getTime() and setTime()
+    • getTime() returns the number of milliseconds since the epoch (January 1, 1970, UTC).
+    • setTime(ms) sets the date using a timestamp in milliseconds.
+Example - Difference between Dates:
+javascript
+Copy
+const today = new Date();
+const endYear = new Date(1995, 11, 31, 23, 59, 59, 999); // Set the end of year date
+endYear.setFullYear(today.getFullYear()); // Set to current year
+const msPerDay = 24 * 60 * 60 * 1000; // Milliseconds in a day
+let daysLeft = (endYear.getTime() - today.getTime()) / msPerDay;
+daysLeft = Math.round(daysLeft); // Returns days left in the year
+console.log(daysLeft);
+parse() Method
+    • Date.parse() takes a string and returns the timestamp in milliseconds for that date. This can be useful for assigning a date value to a Date object.
+Example:
+javascript
+Copy
+const ipoDate = new Date();
+ipoDate.setTime(Date.parse("Aug 9, 1995"));
+console.log(ipoDate);
+Creating Array 
+1. Creating Arrays
+You can create arrays in multiple ways:
+    • Using the Array constructor:
+      js
+      Copy
+      const arr1 = new Array(element0, element1, /* …, */ elementN);
+      const arr2 = Array(element0, element1, /* …, */ elementN);
+    • Using Array Literals (recommended):
+      js
+      Copy
+      const arr3 = [element0, element1, /* …, */ elementN];
+      This syntax is the most common and preferred.
+    • Creating an empty array with a non-zero length:
+      js
+      Copy
+      const arr1 = new Array(arrayLength);
+      const arr2 = Array(arrayLength);
+      const arr3 = [];
+      arr3.length = arrayLength;
+    • Creating an array with a single element (e.g., Number 42):
+      js
+      Copy
+      const arr = [42]; // Array with one element 42
+      const arr = Array(42); // Creates an array of length 42 with no elements (empty spots)
+    • Use of Array.of() to create an array with a single element:
+      js
+      Copy
+      const arr = Array.of(9.3); // arr contains only one element 9.3
+2. Referring to Array Elements
+Arrays use zero-based indexing:
+    • Access elements by index:
+      js
+      Copy
+      const myArray = ["Wind", "Rain", "Fire"];
+      myArray[0]; // "Wind"
+      myArray[1]; // "Rain"
+    • Use property accessors for length and other properties:
+      js
+      Copy
+      arr["length"]; // Length of array
+3. Populating an Array
+You can populate an array either at creation or later:
+    • Populating an empty array:
+      js
+      Copy
+      const emp = [];
+      emp[0] = "Casey Jones";
+      emp[1] = "Phil Lesh";
+      emp[2] = "August West";
+    • Using Array Literals:
+      js
+      Copy
+      const myArray = ["Hello", myVar, 3.14159];
+4. Understanding the length Property
+    • length returns the number of elements in the array:
+      js
+      Copy
+      const cats = [];
+      cats[30] = ["Dusty"];
+      console.log(cats.length); // 31 (index 30, array length = 31)
+    • Assigning a value to length can truncate or empty the array:
+      js
+      Copy
+      cats.length = 2; // ["Dusty", "Misty"]
+      cats.length = 0; // []
+      cats.length = 3; // [ <3 empty items> ]
+5. Iterating Over Arrays
+Common methods for iterating over arrays:
+    • Using for loop:
+      js
+      Copy
+      const colors = ["red", "green", "blue"];
+      for (let i = 0; i < colors.length; i++) {
+        console.log(colors[i]);
+      }
+    • Using forEach:
+      js
+      Copy
+      colors.forEach((color) => console.log(color));
+6. Array Methods
+JavaScript arrays come with many useful methods to manipulate and process data:
+    • concat(): Combines arrays:
+      js
+      Copy
+      let myArray = ["1", "2", "3"];
+      myArray = myArray.concat("a", "b", "c");
+    • join(): Combines elements into a string:
+      js
+      Copy
+      const myArray = ["Wind", "Rain", "Fire"];
+      const list = myArray.join(" - "); // "Wind - Rain - Fire"
+    • push(): Adds elements to the end:
+      js
+      Copy
+      const myArray = ["1", "2"];
+      myArray.push("3"); // ["1", "2", "3"]
+    • pop(): Removes the last element:
+      js
+      Copy
+      const myArray = ["1", "2", "3"];
+      const last = myArray.pop(); // ["1", "2"], last = "3"
+    • shift(): Removes the first element:
+      js
+      Copy
+      const myArray = ["1", "2", "3"];
+      const first = myArray.shift(); // ["2", "3"], first = "1"
+    • unshift(): Adds elements to the front:
+      js
+      Copy
+      const myArray = ["1", "2", "3"];
+      myArray.unshift("4", "5"); // ["4", "5", "1", "2", "3"]
+    • slice(): Extracts part of an array:
+      js
+      Copy
+      let myArray = ["a", "b", "c", "d", "e"];
+      myArray = myArray.slice(1, 4); // ["b", "c", "d"]
+    • at(): Accesses elements with negative indexing:
+      js
+      Copy
+      const myArray = ["a", "b", "c", "d", "e"];
+      myArray.at(-2); // "d"
+    • splice(): Removes elements and optionally inserts new ones:
+      js
+      Copy
+      const myArray = ["1", "2", "3", "4", "5"];
+      myArray.splice(1, 3, "a", "b", "c", "d");
+    • reverse(): Reverses the array:
+      js
+      Copy
+      const myArray = ["1", "2", "3"];
+      myArray.reverse(); // ["3", "2", "1"]
+    • flat(): Flattens arrays:
+      js
+      Copy
+      let myArray = [1, 2, [3, 4]];
+      myArray = myArray.flat(); // [1, 2, 3, 4]
+    • sort(): Sorts array elements:
+      js
+      Copy
+      const myArray = ["Wind", "Rain", "Fire"];
+      myArray.sort(); // ["Fire", "Rain", "Wind"]
+7. Array Iterative Methods
+JavaScript arrays provide several methods for iterating and transforming array items:
+    • map(): Transforms each item:
+      js
+      Copy
+      const a1 = ["a", "b", "c"];
+      const a2 = a1.map(item => item.toUpperCase());
+    • filter(): Filters elements based on condition:
+      js
+      Copy
+      const a1 = ["a", 10, "b", 20, "c", 30];
+      const a2 = a1.filter((item) => typeof item === "number");
+    • reduce(): Reduces array to a single value:
+      js
+      Copy
+      const a = [10, 20, 30];
+      const total = a.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+    • some(): Returns true if at least one element meets the condition:
+      js
+      Copy
+      const a = [1, "2", 3];
+      console.log(a.some((item) => typeof item === "number")); // true
+    • every(): Returns true if all elements meet the condition:
+      js
+      Copy
+      const a = [1, 2, 3];
+      console.log(a.every((item) => typeof item === "number")); // true
+Grouping Elements with Object.groupBy():
+    • Groups array elements based on a specific property.
+    • Returns an object with keys as group names and values as arrays of grouped elements.
+Example:
+javascript
+Copy
+const result = Object.groupBy(inventory, ({ type }) => type);
+    • Sparse Arrays:
+    • Arrays with empty slots that are not the same as undefined.
+    • Empty slots can be created via constructor, commas in literals, or directly setting indices.
+    • Iteration methods (forEach, map, etc.) skip empty slots.
+Example:
+javascript
+Copy
+const arr = [1, 2, , , 5];  // Sparse array
+console.log(arr[2]);  // undefined
+
+Maps and Sets 
+Map Object
+    • Description: A Map is a collection of key/value pairs, where keys can be any value (not just strings or symbols). The elements are iterated in insertion order.
+    • Basic Operations:
+        ◦ set(key, value): Adds a key/value pair.
+        ◦ get(key): Retrieves the value for the key.
+        ◦ has(key): Checks if a key exists.
+        ◦ delete(key): Removes a key.
+        ◦ clear(): Clears all entries.
+        ◦ size: Returns the number of key/value pairs.
+      Example:
+      javascript
+      Copy
+      const sayings = new Map();
+      sayings.set("dog", "woof");
+      sayings.set("cat", "meow");
+    • Comparison with Objects:
+        ◦ Keys: Maps allow any type of key, while objects only allow strings and symbols.
+        ◦ Size: Map directly provides the size, while you have to track it manually with objects.
+        ◦ Iteration: Map iterates in insertion order.
+    • Use cases:
+        ◦ Use Map when keys are dynamic and need to store any value type as a key.
+        ◦ Use Object when you need to work with specific elements and logic.
+WeakMap Object
+    • Description: A WeakMap is similar to a Map, but the keys must be objects or non-registered symbols. It holds weak references to its keys, so they can be garbage collected when no longer in use.
+    • Key Features:
+        ◦ The key must be an object.
+        ◦ WeakMaps don't allow key enumeration.
+        ◦ Values can be any type.
+      Example: Using WeakMap for private data:
+      javascript
+      Copy
+      const privates = new WeakMap();
+      
+      function Public() {
+        const me = {};
+        privates.set(this, me);
+      }
+      
+      Public.prototype.method = function () {
+        const me = privates.get(this);
+      };
+Set Object
+    • Description: A Set is a collection of unique values, where each value can only occur once. Iteration is done in insertion order.
+    • Basic Operations:
+        ◦ add(value): Adds a value to the set.
+        ◦ has(value): Checks if a value exists.
+        ◦ delete(value): Removes a value.
+        ◦ size: Returns the number of values.
+      Example:
+      javascript
+      Copy
+      const mySet = new Set();
+      mySet.add(1);
+      mySet.add("text");
+    • Converting Between Array and Set:
+        ◦ Use Array.from(set) or spread syntax [...] to convert a Set to an Array.
+        ◦ Converting an Array to a Set removes duplicates.
+    • Array vs Set:
+        ◦ Set stores unique values without duplicates.
+        ◦ Set is more efficient for deletion compared to arrays.
+WeakSet Object
+    • Description: A WeakSet is similar to a Set, but it can only contain objects or non-registered symbols. The references to objects are weak, allowing them to be garbage collected when no longer in use.
+    • Key Features:
+        ◦ Objects in a WeakSet can be garbage collected.
+        ◦ WeakSet does not allow enumeration (no .size, .forEach, or similar).
+Equality in Map and Set
+    • Key/Value Equality: Based on the SameValueZero algorithm:
+        ◦ +0 and -0 are considered equal.
+        ◦ NaN is considered equal to itself.
+
+-----------------------------------------------------------------------------------------------------------------------
+
+
+Day -2 
+1. map()
+    • Description: Creates a new array populated with the results of calling a provided function on every element in the calling array.
+    • Syntax: array.map(callback(currentValue, index, array))
+    • Example:
+      javascript
+      Copy
+      const numbers = [1, 2, 3];
+      const doubled = numbers.map(num => num * 2); // [2, 4, 6]
+2. filter()
+    • Description: Creates a new array with all elements that pass the test implemented by the provided function.
+    • Syntax: array.filter(callback(currentValue, index, array))
+    • Example:
+      javascript
+      Copy
+      const numbers = [1, 2, 3, 4, 5];
+      const evenNumbers = numbers.filter(num => num % 2 === 0); // [2, 4]
+3. reduce()
+    • Description: Applies a function against an accumulator and each element in the array to reduce it to a single value.
+    • Syntax: array.reduce(callback(accumulator, currentValue, index, array), initialValue)
+    • Example:
+      javascript
+      Copy
+      const numbers = [1, 2, 3];
+      const sum = numbers.reduce((acc, num) => acc + num, 0); // 6
+4. keys()
+    • Description: Returns a new Array Iterator object that contains the keys (indexes) of an array.
+    • Syntax: array.keys()
+    • Example:
+      javascript
+      Copy
+      const arr = ['a', 'b', 'c'];
+      for (let key of arr.keys()) {
+        console.log(key); // 0, 1, 2
+      }
+5. every()
+    • Description: Tests whether all elements in the array pass the test implemented by the provided function.
+    • Syntax: array.every(callback(currentValue, index, array))
+    • Example:
+      javascript
+      Copy
+      const numbers = [2, 4, 6];
+      const allEven = numbers.every(num => num % 2 === 0); // true
+6. values()
+    • Description: Returns a new Array Iterator object that contains the values of the array.
+    • Syntax: array.values()
+    • Example:
+      javascript
+      Copy
+      const arr = [1, 2, 3];
+      for (let value of arr.values()) {
+        console.log(value); // 1, 2, 3
+      }
+7. forEach()
+    • Description: Executes a provided function once for each array element.
+    • Syntax: array.forEach(callback(currentValue, index, array))
+    • Example:
+      javascript
+      Copy
+      const numbers = [1, 2, 3];
+      numbers.forEach(num => console.log(num)); // 1, 2, 3
+8. slice()
+    • Description: Returns a shallow copy of a portion of an array into a new array object selected from the start index to the end index (end index not included).
+    • Syntax: array.slice(startIndex, endIndex)
+    • Example:
+      javascript
+      Copy
+      const arr = [1, 2, 3, 4];
+      const newArr = arr.slice(1, 3); // [2, 3]
+9. splice()
+    • Description: Changes the contents of an array by removing or replacing existing elements and/or adding new elements in place.
+    • Syntax: array.splice(startIndex, deleteCount, item1, item2, ...)
+    • Example:
+      javascript
+      Copy
+      const arr = [1, 2, 3, 4];
+      arr.splice(2, 1, 'a', 'b'); // [3] removed, ['a', 'b'] added
+      // arr = [1, 2, 'a', 'b', 4]
+10. findIndex()
+    • Description: Returns the index of the first element in the array that satisfies the provided testing function.
+    • Syntax: array.findIndex(callback(currentValue, index, array))
+    • Example:
+      javascript
+      Copy
+      const numbers = [5, 10, 15];
+      const index = numbers.findIndex(num => num > 10); // 2
+11. indexOf()
+    • Description: Returns the first index at which a given element is found in the array, or -1 if not found.
+    • Syntax: array.indexOf(searchElement, fromIndex)
+    • Example:
+      javascript
+      Copy
+      const arr = [1, 2, 3];
+      const index = arr.indexOf(2); // 1
+12. concat()
+    • Description: Merges two or more arrays or values into a new array.
+    • Syntax: array.concat(value1, value2, ...)
+    • Example:
+      javascript
+      Copy
+      const arr1 = [1, 2];
+      const arr2 = [3, 4];
+      const newArr = arr1.concat(arr2); // [1, 2, 3, 4]
+13. find()
+    • Description: Returns the first element in the array that satisfies the provided testing function.
+    • Syntax: array.find(callback(currentValue, index, array))
+    • Example:
+      javascript
+      Copy
+      const numbers = [5, 10, 15];
+      const found = numbers.find(num => num > 10); // 15
+14. pop()
+    • Description: Removes the last element from an array and returns that element.
+    • Syntax: array.pop()
+    • Example:
+      javascript
+      Copy
+      const arr = [1, 2, 3];
+      const popped = arr.pop(); // 3
+      // arr = [1, 2]
+15. push()
+    • Description: Adds one or more elements to the end of an array and returns the new length of the array.
+    • Syntax: array.push(item1, item2, ...)
+    • Example:
+      javascript
+      Copy
+      const arr = [1, 2];
+      arr.push(3); // 3
+      // arr = [1, 2, 3]
+16. for...of
+    • Description: Iterates over the values of an iterable object (like arrays, strings, maps, sets).
+    • Syntax: for (const element of iterable) { ... }
+    • Example:
+      javascript
+      Copy
+      const arr = [1, 2, 3];
+      for (const num of arr) {
+        console.log(num); // 1, 2, 3
+      }
+17. for...in
+    • Description: Iterates over the enumerable property names (keys) of an object. Often used with objects but can be used with arrays for keys.
+    • Syntax: for (const key in object) { ... }
+    • Example:
+      javascript
+      Copy
+      const arr = [10, 20, 30];
+      for (const index in arr) {
+        console.log(index); // 0, 1, 2
+      }
