@@ -8,7 +8,7 @@ Control flow and error handling
 2. Conditional Statements
     • if...else: This is used to execute one set of code if a condition is true, and another set if it is false. You can chain multiple conditions using else if.
         ◦ Best Practice: Always use block statements {} to group multiple statements, especially when nesting conditions.
-    • switch: This statement compares a single expression against multiple possible values. It is typically used when there are many possible conditions for a single variable, and it is more readable than chaining multiple if...else statements. If no match is found, the default case is executed (if provided).
+    • switch: This  statement compares a single expression against multiple possible values. It is typically used when there are many possible conditions for a single variable, and it is more readable than chaining multiple if...else statements. If no match is found, the default case is executed (if provided).
 3. Falsy Values
 In JavaScript, some values are considered "falsy," meaning they evaluate to false in conditional checks. These include:
     • false
